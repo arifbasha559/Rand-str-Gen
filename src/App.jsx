@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import  { useState, useCallback, useEffect } from 'react';
 import './App.css';
 import { Slide, toast, ToastContainer } from 'react-toastify';
 const generateRandomString = (length) => {
@@ -54,26 +54,39 @@ function App() {
       });
   };
   return (
-    <div className='p-20 bg-[#242424] text-white h-screen flex flex-col items-center justify-center'>
-      <h1 className='text-3xl'>Random String Generator</h1>
+    <div className="bg-[#242424] text-white min-h-screen flex flex-col items-center justify-center px-6 py-10 w-full max-w-full box-border">
+      <h1 className="text-2xl md:text-3xl font-bold text-center mb-8 break-words">Random String Generator</h1>
 
-      <label className='mt-4 flex gap-2 items-center '>
-        Length:
+      <label className="mt-4 flex flex-col sm:flex-row gap-2 items-center mx-auto justify-center w-full max-w-xs mb-8">
+        <span className="text-base md:text-lg">Length:</span>
         <input
-          className='p-2 rounded bg-[#333] text-white'
+          className="p-2 rounded bg-[#333] outline-none no-spinner text-white w-full sm:w-auto min-w-0"
           type="number"
-          value={length}
-          onChange={(e) => setLength(Number(e.target.value))}
+          value={length === 0 ? 1 : length}
+          onChange={(e) => setLength(Number(e.target.value) || 1)}
           min={1}
+          max={9999}
+          title='Length must be between 1 and 9999'
+          autoFocus
+          required
         />
       </label>
 
-      <button onClick={generate}
-        className='p-2 rounded bg-[#333] text-white mt-4'>Generate</button>
+      <button
+        onClick={generate}
+        className="p-2 rounded bg-[#333] text-white mt-4 w-full max-w-xs text-base md:text-lg hover:bg-[#444] transition-colors duration-200 mb-8"
+      >
+        Generate
+      </button>
 
-      <div style={{ marginTop: 20 }}>
-        <strong>Generated String:</strong>
-        <p className='select-all' onClick={handleCopy}>{randomString}</p>
+      <div className="mt-5 break-all w-full max-w-md text-center">
+        <strong className="block mb-2 text-base md:text-lg">Generated String:</strong>
+        <span
+          className="select-all px-2 py-1 rounded bg-[#333] selection:text-[#111] selection:bg-[#fff] text-white cursor-pointer inline-block text-sm md:text-base w-full max-w-full overflow-wrap break-words"
+          onClick={handleCopy}
+        >
+          {randomString? randomString : 'Change the length and click Generate'}
+        </span>
       </div>
       <ToastContainer
         position="bottom-right"
